@@ -21,9 +21,9 @@ contract MyEpicNFT is ERC721URIStorage {
 
   // I create three arrays, each with their own theme of random words.
   // Pick some random funny words, names of anime characters, foods you like, whatever! 
-  string[] firstWords = ["YOUR_WORD", "YOUR_WORD", "YOUR_WORD", "YOUR_WORD", "YOUR_WORD", "YOUR_WORD"];
-  string[] secondWords = ["YOUR_WORD", "YOUR_WORD", "YOUR_WORD", "YOUR_WORD", "YOUR_WORD", "YOUR_WORD"];
-  string[] thirdWords = ["YOUR_WORD", "YOUR_WORD", "YOUR_WORD", "YOUR_WORD", "YOUR_WORD", "YOUR_WORD"];
+  string[] firstWords = ["Peron", "Cristina", "Nestor", "NicoDelCanio", "Milei", "Guzman"];
+  string[] secondWords = ["Amasa", "Vende", "Dona", "Rifa", "Envia", "Juega"];
+  string[] thirdWords = ["Pinguinos", "Fortunas", "Choripanes", "Falopa", "Churro", "Sueldo"];
 
   
   // We need to pass the name of our NFTs token and its symbol.
