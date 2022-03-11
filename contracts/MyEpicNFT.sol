@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "hardhat/console.sol";
 // We need some util functions for strings.
 import "@openzeppelin/contracts/utils/Strings.sol";
+import { Base64 } from "./libraries/Base64.sol";
 
 // We inherit the contract we imported. This means we'll have access
 // to the inherited contract's methods.
