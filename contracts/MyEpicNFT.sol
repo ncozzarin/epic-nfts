@@ -67,16 +67,41 @@ contract MyEpicNFT is ERC721URIStorage {
     string memory third = pickRandomThirdWord(newItemId);
 
     // I concatenate it all together, and then close the <text> and <svg> tags.
+    string memory combinedWord = string(abi.encodePacked(first, second, third));
+
     string memory finalSvg = string(abi.encodePacked(baseSvg, first, second, third, "</text></svg>"));
+
+    // Get all the JSON metadata in place and base64 encode it.
+    string memory json = Base64.encode(
+        bytes(
+            string(
+                abi.encodePacked(
+                    '{"name": "',
+                    // We set the title of our NFT as the generated word.
+                    combinedWord,
+                    '", "description": "A highly acclaimed collection of squares.", "image": "data:image/svg+xml;base64,',
+                    // We add data:image/svg+xml;base64 and then append our base64 encode our svg.
+                    Base64.encode(bytes(finalSvg)),
+                    '"}'
+                )
+            )
+        )
+    );
+
+    // Just like before, we prepend data:application/json;base64, to our data.
+    string memory finalTokenUri = string(
+        abi.encodePacked("data:application/json;base64,", json)
+    );
+
     console.log("\n--------------------");
-    console.log(finalSvg);
+    console.log(finalTokenUri);
     console.log("--------------------\n");
 
      // Actually mint the NFT to the sender using msg.sender.
     _safeMint(msg.sender, newItemId);
 
     // Set the NFTs data.
-    _setTokenURI(newItemId, "data:application/json;base64,ewogICAgIm5hbWUiOiAiRXBpY0xvcmRIYW1idXJnZXIiLAogICAgImRlc2NyaXB0aW9uIjogIkFuIE5GVCBmcm9tIHRoZSBoaWdobHkgYWNjbGFpbWVkIHNxdWFyZSBjb2xsZWN0aW9uIiwKICAgICJpbWFnZSI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSEJ5WlhObGNuWmxRWE53WldOMFVtRjBhVzg5SW5oTmFXNVpUV2x1SUcxbFpYUWlJSFpwWlhkQ2IzZzlJakFnTUNBek5UQWdNelV3SWo0TkNpQWdJQ0E4YzNSNWJHVStMbUpoYzJVZ2V5Qm1hV3hzT2lCM2FHbDBaVHNnWm05dWRDMW1ZVzFwYkhrNklITmxjbWxtT3lCbWIyNTBMWE5wZW1VNklERTBjSGc3SUgwOEwzTjBlV3hsUGcwS0lDQWdJRHh5WldOMElIZHBaSFJvUFNJeE1EQWxJaUJvWldsbmFIUTlJakV3TUNVaUlHWnBiR3c5SW1Kc1lXTnJJaUF2UGcwS0lDQWdJRHgwWlhoMElIZzlJalV3SlNJZ2VUMGlOVEFsSWlCamJHRnpjejBpWW1GelpTSWdaRzl0YVc1aGJuUXRZbUZ6Wld4cGJtVTlJbTFwWkdSc1pTSWdkR1Y0ZEMxaGJtTm9iM0k5SW0xcFpHUnNaU0krUlhCcFkweHZjbVJJWVcxaWRYSm5aWEk4TDNSbGVIUStEUW84TDNOMlp6ND0iCn0=");
+    _setTokenURI(newItemId, finalTokenUri);
     console.log("An NFT w/ ID %s has been minted to %s", newItemId, msg.sender);
 
 
