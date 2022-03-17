@@ -108,22 +108,16 @@ contract MyEpicNFT is ERC721URIStorage {
     string memory finalTokenUri = string(
         abi.encodePacked("data:application/json;base64,", json)
     );
-
     console.log("\n--------------------");
     console.log(finalTokenUri);
     console.log("--------------------\n");
-
      // Actually mint the NFT to the sender using msg.sender.
     _safeMint(msg.sender, newItemId);
-
     // Set the NFTs data.
     _setTokenURI(newItemId, finalTokenUri);
     console.log("An NFT w/ ID %s has been minted to %s", newItemId, msg.sender);
-
-
     // Increment the counter for when the next NFT is minted.
     _tokenIds.increment();
-
     emit NewEpicNFTMinted(msg.sender, newItemId);
 
   }
